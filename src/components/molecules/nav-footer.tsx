@@ -18,18 +18,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useAuth } from "@/hooks/useAuth";
-import { toast } from "sonner";
 
 export function NavFooter() {
-  const {user, logout } = useAuth();
-  const handleLogout = () => {
-    logout();
-    toast.success("Logged out successfully", {
-      position: "top-right",
-    });
-    console.log("Logout clicked");
-  };
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -47,7 +37,7 @@ export function NavFooter() {
                 <span className="truncate font-medium">Perry</span>
 
                 <span className="truncate text-xs text-muted-foreground">
-                 {user?.email || "User"}
+                  perry@example.com
                 </span>
               </div>
 
@@ -93,7 +83,7 @@ export function NavFooter() {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem onClick={handleLogout}>
+            <DropdownMenuItem>
               <LogOut className="mr-2 size-4" />
               Log out
             </DropdownMenuItem>

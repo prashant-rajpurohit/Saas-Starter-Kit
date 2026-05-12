@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Providers from "@/providers";
-import { AuthProvider } from "@/providers/AuthProvider";
-import { Toaster } from "@/components/ui/sonner";
 
 
 const geistSans = localFont({
@@ -29,16 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(geistSans.variable, "font-sans", geistMono.variable)} suppressHydrationWarning>
+    <html lang="en" className={cn( geistSans.variable, "font-sans", geistMono.variable)} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          <AuthProvider>
-            {children}
-            <Toaster />
-          </AuthProvider>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
