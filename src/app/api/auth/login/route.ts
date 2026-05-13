@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import connectDB from "@/lib/db";
 import User from "@/models/users";
+import { env } from "@/lib/env";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
     if (!email || !password) {
       return NextResponse.json(
         { message: "Email and password are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { message: "Invalid email or password" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -29,14 +30,14 @@ export async function POST(req: NextRequest) {
     if (!isPasswordValid) {
       return NextResponse.json(
         { message: "Invalid email or password" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     const token = jwt.sign(
       { userId: user._id, email: user.email },
-      process.env.JWT_SECRET!,
-      { expiresIn: "1d" }
+      env.JWT_SECRET,
+      { expiresIn: "1d" },
     );
 
     return NextResponse.json({
@@ -48,11 +49,10 @@ export async function POST(req: NextRequest) {
         email: user.email,
       },
     });
-
   } catch (error) {
     return NextResponse.json(
-      { message: "Internal server error", error },
-      { status: 500 }
+      { message: "Internal server error" },
+      { status: 500 },
     );
   }
 }

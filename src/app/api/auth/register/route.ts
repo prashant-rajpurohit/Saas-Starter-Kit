@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     if (!name || !email || !password) {
       return NextResponse.json(
         { message: "All fields are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -20,14 +20,14 @@ export async function POST(req: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { message: "Invalid email format" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
         { message: "Password must be at least 6 characters" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     if (existingUser) {
       return NextResponse.json(
         { message: "User already exists" },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -57,13 +57,23 @@ export async function POST(req: NextRequest) {
           createdAt: user.createdAt,
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
-
-  } catch (error) {
+  } catch (error: unknown) {
+    if (
+      error &&
+      typeof error === "object" &&
+      "code" in error &&
+      error.code === 11000
+    ) {
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 409 },
+      );
+    }
     return NextResponse.json(
-      { message: "Internal server error", error },
-      { status: 500 }
+      { message: "Internal server error" },
+      { status: 500 },
     );
   }
 }
