@@ -32,7 +32,6 @@ export default function LoginPage() {
       });
 
     } catch (error) {
-      console.error(error);
       toast.error("Login failed", {
         description: "Please check your credentials and try again",
         position: "top-right",

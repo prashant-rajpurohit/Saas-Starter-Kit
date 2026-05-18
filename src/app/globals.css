@@ -16,7 +16,10 @@
     text-wrap: balance;
   }
 }
-
+#nprogress .bar {
+  background: hsl(var(--primary)) !important;
+  height: 3px !important;
+}
 @layer base {
   .theme {
     --font-heading: var(--font-sans);

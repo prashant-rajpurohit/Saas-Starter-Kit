@@ -28,7 +28,6 @@ export function NavFooter() {
     toast.success("Logged out successfully", {
       position: "top-right",
     });
-    console.log("Logout clicked");
   };
   return (
     <SidebarMenu>
