@@ -12,7 +12,6 @@ async function connectDB() {
   try {
     if (cached.conn) {
       await mongoose.connect(MONGODB_URI);
-      console.log("MongoDB Connected");
     }
     if (!cached.promise) {
       cached.promise = mongoose.connect(MONGODB_URI, {
@@ -21,15 +20,11 @@ async function connectDB() {
     }
 
     cached.conn = await cached.promise;
-    console.log("MongoDB Connected ✅");
     return cached.conn;
-
   } catch (error) {
     cached.promise = null;
-    console.error("MongoDB Connection Failed");
     throw error;
   }
-
 }
 
 export default connectDB;

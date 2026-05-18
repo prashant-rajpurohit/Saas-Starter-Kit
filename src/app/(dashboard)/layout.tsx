@@ -3,6 +3,7 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { MainSidebar } from "@/components/organisms/main-sidebar";
 import { Header } from "@/components/organisms/header";
+import { RouteProgress } from "@/components/atoms/route-progress";
 export default function DashboardLayout({
   children,
 }: {
@@ -20,10 +21,8 @@ export default function DashboardLayout({
       <MainSidebar />
       <SidebarInset>
         <Header />
-        <span style={{ padding: "20px" }}>
-
-        {children}
-        </span>
+        <RouteProgress />
+        <span style={{ padding: "20px" }}>{children}</span>
       </SidebarInset>
     </SidebarProvider>
   );
